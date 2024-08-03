@@ -7,7 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      installation:
       actions: read
       packages: write
       contents: write
