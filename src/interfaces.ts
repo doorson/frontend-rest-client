@@ -1,4 +1,5 @@
 import { RequestCredentials, RequestMode } from "undici-types/fetch";
+import { isObject } from "./utils/validators";
 
 /**
  * Client options for the client instance configuration
@@ -6,42 +7,59 @@ import { RequestCredentials, RequestMode } from "undici-types/fetch";
  * @public
  */
 export class FetchFrontendClientOptions {
+  constructor() {}
+
   _headers?: Record<string, string | string[]> | undefined;
+  headers = (_headers?: Record<string, string | string[]> | undefined) => {
+    if (isObject(_headers)) {
+      this._headers = { ...this._headers, ..._headers };
+    }
+    return this;
+  };
   _credentials?: RequestCredentials;
+  credentials = (_credentials?: RequestCredentials) => {
+    this._credentials = _credentials;
+    return this;
+  };
+  _authProvider?: AuthProvider;
+  authProvider = (_authProvider?: AuthProvider) => {
+    this._authProvider = _authProvider;
+    return this;
+  };
   _mode?: RequestMode;
-  _bodyParser?: (body?: BodyInit) => string;
-  _preRequestFn?: () => Promise<unknown>;
-  _responder?: (response: Response) => Promise<Response>;
-
-  public preRequest(preRequestFn: () => Promise<unknown>): FetchFrontendClientOptions {
-    this._preRequestFn = preRequestFn;
+  mode = (_mode?: RequestMode) => {
+    this._mode = _mode;
     return this;
-  }
-
-  public headers(headers: Record<string, string | string[]> | undefined): FetchFrontendClientOptions {
-    this._headers = headers;
+  };
+  _requestInterceptor?: (req: { request: RequestInit }) => Promise<RequestInterceptorResult>;
+  requestInterceptor = (_requestInterceptor?: (req: { request: RequestInit }) => Promise<RequestInterceptorResult>) => {
+    this._requestInterceptor = _requestInterceptor;
     return this;
-  }
-
-  public mode(mode: RequestMode): FetchFrontendClientOptions {
-    this._mode = mode;
+  };
+  _responseInterceptor?: <Response>(response: Response) => Promise<Response>;
+  responseInterceptor = (_responseInterceptor?: <Response>(response: Response) => Promise<Response>) => {
+    this._responseInterceptor = _responseInterceptor;
     return this;
-  }
+  };
+}
 
-  public credentials(credentials: RequestCredentials): FetchFrontendClientOptions {
-    this._credentials = credentials;
-    return this;
-  }
+/**
+ * @public
+ */
+export interface RequestInterceptorResult {
+  proceed: boolean;
+  request?: RequestInit & { headers: Record<string, string | string[]> };
+}
 
-  public bodyParser(bodyParser: (body?: BodyInit) => string): FetchFrontendClientOptions {
-    this._bodyParser = bodyParser;
-    return this;
-  }
+/**
+ * Authentication provider interface supports injecting custom Auth mechanism into client
+ *
+ * @public
+ */
+export interface AuthProvider {
+  authProviderName: string;
 
-  public responder(responder: () => Promise<Response>) {
-    this._responder = responder;
-    return this;
-  }
+  getAuthHeaders(): Promise<Record<string, string>>;
 }
 
 /**
@@ -115,6 +133,11 @@ export interface ClientResponse<Response> {
   responseHeaders?: { [key: string]: string | string[] };
 }
 
+/**
+ * Query definition type
+ *
+ * @public
+ */
 export interface QueryDefinition {
   exploded: boolean;
   explodeFormat?: "brackets" | "index" | "default";

@@ -1,2 +1,12 @@
-export { FetchFrontendClient } from "./client/client";
-export { FrontendClient, FetchClientData, HttpMethod, FetchFrontendClientOptions, ClientRequest, ClientResponse, QueryParamValueType } from "./interfaces";
+export { initFetchFrontendClient } from "./client/client";
+export {
+  FrontendClient,
+  FetchClientData,
+  HttpMethod,
+  FetchFrontendClientOptions,
+  ClientRequest,
+  ClientResponse,
+  QueryParamValueType,
+  RequestInterceptorResult,
+  AuthProvider,
+} from "./interfaces";
