@@ -9,4 +9,5 @@ export {
   QueryParamValueType,
   RequestInterceptorResult,
   AuthProvider,
+  initFetchFrontendClientOptions,
 } from "./interfaces";

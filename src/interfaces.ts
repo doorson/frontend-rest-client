@@ -2,6 +2,45 @@ import { RequestCredentials, RequestMode } from "undici-types/fetch";
 import { isObject } from "./utils/validators";
 
 /**
+ * Initializes client options object
+ *
+ * @param params - client options
+ *
+ * @public
+ */
+export function initFetchFrontendClientOptions(params?: {
+  headers?: Record<string, string | string[]> | undefined;
+  credentials?: RequestCredentials;
+  authProvider?: AuthProvider;
+  mode?: RequestMode;
+  requestInterceptor?: (req: { request: RequestInit }) => Promise<RequestInterceptorResult>;
+  responseInterceptor?: <Response>(response: Response) => Promise<Response>;
+}) {
+  const options = new FetchFrontendClientOptions();
+
+  if (params?.headers) {
+    options.headers(params.headers);
+  }
+  if (params?.credentials) {
+    options.credentials(params.credentials);
+  }
+  if (params?.authProvider) {
+    options.authProvider(params.authProvider);
+  }
+  if (params?.mode) {
+    options.mode(params.mode);
+  }
+  if (params?.requestInterceptor) {
+    options.requestInterceptor(params.requestInterceptor);
+  }
+  if (params?.responseInterceptor) {
+    options.responseInterceptor(params.responseInterceptor);
+  }
+
+  return options;
+}
+
+/**
  * Client options for the client instance configuration
  *
  * @public
