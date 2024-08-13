@@ -20,6 +20,9 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@gpor0'
       - run: npm ci
+      - run: npm run build
+      - run: npm run pack
+      - run: npm run gen-api-docs
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
