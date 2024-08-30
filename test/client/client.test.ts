@@ -1,5 +1,4 @@
-import { initFetchFrontendClient } from "../../build";
-import { HttpMethod } from "../../src";
+import { HttpMethod, initFetchFrontendClient } from "../../src";
 
 describe("test client request", () => {
   beforeAll(() => {});

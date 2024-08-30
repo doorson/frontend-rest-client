@@ -3,6 +3,6 @@ build
 coverage
 .idea
 .npm
-gpor0-frontend-rest-client-*.tgz
-gpor0-frontend-rest-client.tgz
+doorson-frontend-rest-client-*.tgz
+doorson-frontend-rest-client.tgz
 frontend-rest-client.d.ts

@@ -1,8 +1,8 @@
 {
-  "name": "@gpor0/frontend-rest-client",
+  "name": "@doorson/frontend-rest-client",
   "version": "0.0.1",
   "description": "Lightweight Frontend Rest Api Client\n",
-  "homepage": "https://github.com/gpor0/frontend-rest-client",
+  "homepage": "https://github.com/doorson/frontend-rest-client",
   "license": "MIT",
   "author": "Gregor",
   "type": "commonjs",
@@ -15,16 +15,16 @@
   ],
   "scripts": {
     "build": "cross-env rimraf ./build && tsc -p tsconfig.build.json",
-    "lint": "cross-env rimraf frontend-rest-client.d.ts gpor0-frontend-rest-client.tgz && eslint . --ext .ts --fix --quiet",
-    "pack": "cross-env rimraf gpor0-frontend-rest-client.tgz && npm pack && mv gpor0-frontend-rest-client-*.tgz gpor0-frontend-rest-client.tgz",
+    "lint": "cross-env rimraf frontend-rest-client.d.ts doorson-frontend-rest-client.tgz && eslint . --ext .ts --fix --quiet",
+    "pack": "cross-env rimraf doorson-frontend-rest-client.tgz && npm pack && mv doorson-frontend-rest-client-*.tgz doorson-frontend-rest-client.tgz",
     "gen-api-docs": "npm run build && api-extractor run --local"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/gpor0/frontend-rest-client.git"
+    "url": "git+ssh://git@github.com/doorson/frontend-rest-client.git"
   },
   "publishConfig": {
-    "@gpor0:registry": "https://npm.pkg.github.com"
+    "@doorson:registry": "https://npm.pkg.github.com"
   },
   "devDependencies": {
     "@microsoft/api-extractor": "^7.47.5",
