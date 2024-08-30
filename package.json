@@ -1,6 +1,6 @@
 {
   "name": "@doorson/frontend-rest-client",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Lightweight Frontend Rest Api Client\n",
   "homepage": "https://github.com/doorson/frontend-rest-client",
   "license": "MIT",
